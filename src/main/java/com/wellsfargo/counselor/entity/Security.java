@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Security {
@@ -11,7 +12,9 @@ public class Security {
 	@Id
 	@GeneratedValue()
 	private long securityId;
-	private long portfolioId;
+	
+	@ManyToOne
+	private Portfolio portfolio;
 	
 	@Column(nullable = false)
 	private String name;
@@ -20,35 +23,33 @@ public class Security {
 	private String category;
 	
 	@Column(nullable = false)
-	private String purchasePrice;
+	private float purchasePrice;
 	
 	@Column(nullable = false)
 	private String purchaseDate;
 	
 	@Column(nullable = false)
-	private int quantity;
+	private float quantity;
 	
 	protected Security() {
 		
 	}
 
-	public Security(String name, String category, String purchasePrice, String purchaseDate, int quantity) {
-		super();
+	public Security(Portfolio portfolio, String name, String category, float purchasePrice, String purchaseDate, float quantity) {
+		this.portfolio = portfolio;
 		this.name = name;
 		this.category = category;
 		this.purchasePrice = purchasePrice;
 		this.purchaseDate = purchaseDate;
 		this.quantity = quantity;
 	}
-
-
-
-	public long getPortfolioId() {
-		return portfolioId;
+	
+	public Portfolio getPortfolio() {
+		return portfolio;
 	}
 
-	public void setPortfolioId(long portfolioId) {
-		this.portfolioId = portfolioId;
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
 	}
 
 	public String getName() {
@@ -67,11 +68,11 @@ public class Security {
 		this.category = category;
 	}
 
-	public String getPurchasePrice() {
+	public float getPurchasePrice() {
 		return purchasePrice;
 	}
 
-	public void setPurchasePrice(String purchasePrice) {
+	public void setPurchasePrice(float purchasePrice) {
 		this.purchasePrice = purchasePrice;
 	}
 
@@ -83,11 +84,11 @@ public class Security {
 		this.purchaseDate = purchaseDate;
 	}
 
-	public int getQuantity() {
+	public float getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(float quantity) {
 		this.quantity = quantity;
 	}
 

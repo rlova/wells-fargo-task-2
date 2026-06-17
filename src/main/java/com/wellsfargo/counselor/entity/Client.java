@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Client {
@@ -11,7 +12,9 @@ public class Client {
     @Id
     @GeneratedValue()
     private long clientId;
-    private long advisorId;
+    
+    @ManyToOne
+    private Advisor advisor;
 
     @Column(nullable = false)
     private String firstName;
@@ -32,7 +35,8 @@ public class Client {
 
     }
 
-	public Client(String firstName, String lastName, String address, String phone, String email) {
+	public Client(Advisor advisor, String firstName, String lastName, String address, String phone, String email) {
+		this.advisor = advisor;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -40,12 +44,12 @@ public class Client {
         this.email = email;
 	}
 
-	public long getAdvisorId() {
-		return advisorId;
+	public Advisor getAdvisor() {
+		return advisor;
 	}
 
-	public void setAdvisorId(long advisorId) {
-		this.advisorId = advisorId;
+	public void setAdvisor(Advisor advisor) {
+		this.advisor = advisor;
 	}
 
 	public String getFirstName() {
